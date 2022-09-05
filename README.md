@@ -52,7 +52,7 @@ For example, if you wanted to get all posts in a single call this would do it:
 You can also use limit with page to specify the page of results to return, this would return the second page of 
 results in pages of 5:
     
-    page_of_posts = api.posts(paging: { limit: 5, page: 2 })
+    page_of_posts = api.posts(paging: { limit: '5', page: '2' })
 
 ### Getting Resource by ID
 If you need to get a single resource by its ID then you can use the find by id methods (posts_by_id, authors_by_id, 
