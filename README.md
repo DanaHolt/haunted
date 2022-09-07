@@ -35,6 +35,11 @@ Once there you click "Add custom integration" to create a new key.
     
     api = Haunted::GhostContentApi.new('https://my-ghost-cms-site.com', '{CONTENT_API_KEY}')
 
+### Responses
+All of this gem's methods return the HTTParty response directly.
+
+See https://rubygems.org/gems/httparty
+
 ### Getting All Resources
 There are methods to get all items for a specified type (posts, authors, tags, pages).
 
@@ -96,8 +101,6 @@ https://ghost.org/docs/content-api/
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
 ## Contributing
 
