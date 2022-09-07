@@ -6,6 +6,7 @@ require "httparty"
 module Haunted
   ##
   # Client that communicates with the Ghost CMS content API
+  ##
   class GhostContentApi
     include HTTParty
 
@@ -15,6 +16,7 @@ module Haunted
     # site_url: URL to the Ghost site
     # key: Content API key
     # options: api_path - override the default content API path, api_version - override the default API version
+    ##
     def initialize(site_url, key, **options)
       @site_url = site_url
       @key = key
@@ -38,15 +40,13 @@ module Haunted
       #
       # paging: Hash that specifies paging and limit options. Use { limit: all } to return all items. Specify a number
       # to returned that number of items per page. Use { page: x } to specify what page of results to return.
-      #
+      ##
       define_method(resource_type) do |include: nil, fields: nil, paging: nil|
-        response = self.class.get(
+        self.class.get(
           build_browse_api_endpoint(resource_type),
-          query: build_query_string_params(@key, include, fields, paging: paging),
+          query: build_query_string_params(include: include, fields: fields, paging: paging),
           headers: build_headers
         )
-
-        response
       end
     end
 
@@ -67,14 +67,13 @@ module Haunted
       #
       # Available options for the include and fields options vary depending on the resource, see the Ghost Content API
       # for more information.
+      ##
       define_method(method) do |id, include: nil, fields: nil|
-        response = self.class.get(
+        self.class.get(
           build_id_api_endpoint(resource_type, id),
-          query: build_query_string_params(@key, include, fields),
+          query: build_query_string_params(include: include, fields: fields),
           headers: build_headers
         )
-
-        response
       end
     end
 
@@ -95,15 +94,45 @@ module Haunted
       #
       # Available options for the include and fields options vary depending on the resource, see the Ghost Content API
       # for more information.
+      ##
       define_method(method) do |slug, include: nil, fields: nil|
-        response = self.class.get(
+        self.class.get(
           build_slug_api_endpoint(resource_type, slug),
-          query: build_query_string_params(@key, include, fields),
+          query: build_query_string_params(include: include, fields: fields),
           headers: build_headers
         )
-
-        response
       end
+    end
+
+    ##
+    # Gets the available tiers
+    #
+    # fields: Array of strings or symbols that specify which resource fields are returned. If you only need some
+    # fields then use this option.
+    #
+    # Available options for the include and fields options vary depending on the resource, see the Ghost Content API
+    # for more information.
+    #
+    # paging: Hash that specifies paging and limit options. Use { limit: all } to return all items. Specify a number
+    # to returned that number of items per page. Use { page: x } to specify what page of results to return.
+    ##
+    def tiers(fields: nil, paging: nil)
+      self.class.get(
+        build_browse_api_endpoint("tiers"),
+        query: build_query_string_params(fields: fields, paging: paging),
+        headers: build_headers
+      )
+    end
+
+    ##
+    # Gets the settings
+    ##
+    def settings
+      self.class.get(
+        build_browse_api_endpoint("settings"),
+        query: build_query_string_params,
+        headers: build_headers
+      )
     end
 
     private
@@ -120,8 +149,8 @@ module Haunted
       "#{build_browse_api_endpoint(type)}/slug/#{slug}"
     end
 
-    def build_query_string_params(key, include, fields, paging: nil)
-      params = { key: key }
+    def build_query_string_params(include: nil, fields: nil, paging: nil)
+      params = { key: @key }
 
       params[:include] = include.join(",") unless include.nil? || include.empty?
       params[:fields] = fields.join(",") unless fields.nil? || fields.empty?

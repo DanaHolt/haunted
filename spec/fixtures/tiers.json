@@ -1,0 +1,18 @@
+{
+  "tiers": [
+    {
+      "id": "8192cs934t8ta00128t",
+      "name": "Free",
+      "description": null,
+      "slug": "free",
+      "active": true,
+      "type": "free",
+      "welcome_page_url": null,
+      "created_at": "2022-09-01T09:31:17.000Z",
+      "updated_at": "2022-09-01T09:31:17.000Z",
+      "stripe_prices": null,
+      "benefits": null,
+      "visibility": "public"
+    }
+  ]
+}
