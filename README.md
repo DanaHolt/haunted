@@ -65,7 +65,7 @@ tags_by_id, pages_by_id).
 
 For example, if you want to get a post by its id:
 
-    post = api.find_by_id("6260c376eb848005f39bf06e")
+    post = api.posts_by_id("6260c376eb848005f39bf06e")
 
 ### Getting Resource by Slug
 Getting resources by their slug is the same as by getting them by ID. There are a set of methods (posts_by_slug, 
@@ -73,7 +73,7 @@ authors_by_slug, tags_by_slug, pages_by_slug) for that.
 
 For example, if you want to get a post by its slug:
 
-    post = apt.find_by_slug("my-cool-post")
+    post = apt.posts_by_slug("my-cool-post")
 
 ## Including Related Resources
 All methods have an include parameter to specify related resources to return. An example of this would be a post's
