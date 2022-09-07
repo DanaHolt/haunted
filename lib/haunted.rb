@@ -154,8 +154,8 @@ module Haunted
 
       params[:include] = include.join(",") unless include.nil? || include.empty?
       params[:fields] = fields.join(",") unless fields.nil? || fields.empty?
-      params[:limit] = paging[:limit] unless paging.nil? || paging[:limit].nil? || paging[:limit].empty?
-      params[:page] = paging[:page] unless paging.nil? || paging[:page].nil? || paging[:page].empty?
+      params[:limit] = paging[:limit] unless paging.nil? || paging[:limit].nil? || paging[:limit].to_s.empty?
+      params[:page] = paging[:page] unless paging.nil? || paging[:page].nil? || paging[:page].to_s.empty?
 
       params
     end
